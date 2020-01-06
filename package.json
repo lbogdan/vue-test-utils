@@ -21,7 +21,9 @@
     "test": "npm run format:check && npm run lint && npm run lint:docs && npm run flow && npm run test:types && npm run test:unit && npm run test:unit:karma && npm run test:unit:node",
     "test:compat": "scripts/test-compat.sh",
     "test:unit": "npm run build:test && npm run test:unit:only",
-    "test:unit:only": "mocha-webpack --webpack-config test/setup/webpack.test.config.js test/specs --recursive --require test/setup/mocha.setup.js",
+    "test:unit:only": "mocha-webpack --webpack-config test/setup/webpack.test.config.js test/specs --recursive --require test/setup/mocha.setup.js --grep \"returns new VueWrapper with correct props data\"",
+    "mytest": "mocha-webpack --webpack-config test/setup/webpack.test.config.js test/specs/mounting-options/listeners.spec.js --require test/setup/mocha.setup.js",
+    "mytest:debug": "node --inspect-brk ./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config test/setup/webpack.test.config.js test/specs/mount.spec.js --require test/setup/mocha.setup.js",
     "test:unit:debug": "npm run build:test && node --inspect-brk node_modules/.bin/mocha-webpack --webpack-config test/setup/webpack.test.config.js test/specs --recursive --require test/setup/mocha.setup.js",
     "test:unit:karma": "npm run build:test && npm run test:unit:karma:only",
     "test:unit:karma:only": "cross-env TARGET=browser karma start test/setup/karma.conf.js --single-run",
@@ -30,6 +32,8 @@
     "test:types": "tsc -p packages/test-utils/types && tsc -p packages/server-test-utils/types"
   },
   "dependencies": {
+    "@vue/server-test-utils": "^1.0.0-beta.30",
+    "@vue/test-utils": "^1.0.0-beta.30",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.3",

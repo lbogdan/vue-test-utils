@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import { compileToFunctions } from 'vue-template-compiler'
-import { mount, createLocalVue } from '~vue/test-utils'
+import testUtils from '~vue/test-utils'
+// import { mount, createLocalVue } from '@vue/test-utils'
+// import testUtils from '@vue/test-utils'
+const { mount, createLocalVue } = testUtils
 import Component from '~resources/components/component.vue'
 import ComponentWithProps from '~resources/components/component-with-props.vue'
 import ComponentWithMixin from '~resources/components/component-with-mixin.vue'
@@ -8,6 +11,12 @@ import ComponentAsAClass from '~resources/components/component-as-a-class.vue'
 import { injectSupported, vueVersion } from '~resources/utils'
 import { describeRunIf, itDoNotRunIf, itSkipIf } from 'conditional-specs'
 import Vuex from 'vuex'
+// const testUtils = require('@vue/test-utils')
+
+debugger;
+
+// console.log('mount:', mount)
+// console.log('test-utils:', testUtils)
 
 describeRunIf(process.env.TEST_ENV !== 'node', 'mount', () => {
   const sandbox = sinon.createSandbox()
@@ -23,7 +32,7 @@ describeRunIf(process.env.TEST_ENV !== 'node', 'mount', () => {
     sandbox.restore()
   })
 
-  it('returns new VueWrapper with mounted Vue instance if no options are passed', () => {
+  it.only('returns new VueWrapper with mounted Vue instance if no options are passed', () => {
     const compiled = compileToFunctions('<div><input /></div>')
     const wrapper = mount(compiled)
     expect(wrapper.vm).to.be.an('object')

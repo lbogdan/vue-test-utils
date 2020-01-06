@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 
-const nodeExternals = require('webpack-node-externals')
+// const nodeExternals = require('webpack-node-externals')
 const webpack = require('webpack')
-const browser = process.env.TARGET === 'browser'
+// const browser = process.env.TARGET === 'browser'
 const path = require('path')
 
 const projectRoot = path.resolve(__dirname, '../../')
@@ -15,19 +15,27 @@ const rules = [].concat(
   {
     test: /\.js$/,
     loader: 'babel-loader',
-    exclude: /node_modules\/(?!(shared|create-instance)\/).*/
+    exclude: /node_modules/
+    // exclude: /node_modules\/(?!(shared|create-instance)\/).*/
   }
 )
 
 module.exports = {
+  // experiments: {
+  //   mjs: true
+  // },
   module: {
     rules
   },
-  externals: !browser ? [nodeExternals()] : undefined,
+  // externals: !browser ? [nodeExternals()] : undefined,
   resolve: {
+  //   symlinks: false
     alias: {
-      '~vue/server-test-utils': `${projectRoot}/packages/server-test-utils/dist/vue-server-test-utils.js`,
-      '~vue/test-utils': `${projectRoot}/packages/test-utils/dist/vue-test-utils.js`,
+      '@vue/server-test-utils': '@vue/server-test-utils/src/index.js',
+      // `${projectRoot}/packages/server-test-utils/src/index.js`,
+      // '~vue/test-utils': '@vue/test-utils/src',
+      '@vue/test-utils': '@vue/test-utils/src/index.js',
+      // `${projectRoot}/packages/test-utils/src/index.js`,
       '~resources': `${projectRoot}/test/resources`
     }
   },
